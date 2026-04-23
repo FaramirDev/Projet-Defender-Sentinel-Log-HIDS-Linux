@@ -95,7 +95,7 @@ def send_discord_alert(message, color=15158332):
     except: print("❌ Erreur d'envoi Discord")
 
 def ban_ip(ip, user):
-    print(f"🔨 [PARE-FEU] Bannissement de {ip}...")
+    print(f"[PARE-FEU] Bannissement de {ip}...")
     if os.system(f"sudo iptables -A INPUT -s {ip} -j DROP") == 0:
         msg = f"🚫 **BANNISSEMENT DÉFINITIF**\n**IP :** `{ip}`\n**Raison :** Seuil de 3 tentatives atteint."
         send_discord_alert(msg, color=15158332)
