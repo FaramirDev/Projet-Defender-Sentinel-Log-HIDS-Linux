@@ -1,0 +1,6 @@
+.env
+__pycache__/
+old_version/
+logs/*
+data/data_ip.*
+captures/old
