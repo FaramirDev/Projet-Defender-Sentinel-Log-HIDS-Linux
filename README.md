@@ -1,10 +1,25 @@
-# 🛡️ Sentinel-Log : HIDS & Défense Active SSH
-## 1. Présentation
+# Sentinel-Log : HIDS & Défense Active SSH
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+## • 1. Présentation
 **Sentinel-Log** est un Système de **Détection** et de **Prévention** d'Intrusions **(HIDS/IPS)** léger écrit en **Python**. Il sécurise l'accès **SSH** en analysant en **temps réel** les flux d'authentification, en **bannissant** les attaquants via le pare-feu noyau et en offrant une **traçabilité** complète de chaque événement.
+
+
+---
+Le script **Sentinel-Log HIDS** s'inscrit dans une démarche de projet personnel autour de developpement d'outils pour un projet de construction de **SIEM** développé en Python.
+
+L'outil **Sentinel-Log HIDS** Linux fait partie de l'un des **modules** de mon **projet Sentinel SIEM**, que vous pouvez décourir ici : 
+
+ - [📂 **Depot Github - Projet Sentinel SIEM & HIDS**](https://github.com/FaramirDev/projet-sentinel-siem-hids)
+
+
+
 
 ---
 ---
-## ⛓️ 2. Fonctionnalités Clés
+## • 2. Fonctionnalités Clés
 - **Analyse Temps Réel** : Monitoring du flux `/var/log/auth.log` via un générateur non-bloquant.
 
 - **Détection Bimodale** : Identification des tentatives de **Brute-Force** ET des connexions **réussies**.
@@ -21,7 +36,7 @@
 
 ---
 ---
-## ⚙️ 3. Architecture & Démarche
+## • 3. Architecture & Démarche
 - **Extraction** : Utilisation d'expressions régulières (**Regex**) pour capturer les tuples (User, IP) dans les logs système.
 
 - **Filtrage** : Comparaison avec une **Whitelist** dynamique (dictionnaire JSON) pour protéger les accès administrateurs.
@@ -32,7 +47,7 @@
 
 ---
 ---
-## 🧿 4. Demonstration 
+## • 4. Demonstration 
 ### Partie - 4.1. Remonté Automatique des Alertes sur le Serveur Discord
 ![Captures remonte alerte automatique 01](./captures/capture_remonte_discord_01.png)
 
@@ -67,6 +82,7 @@
 ### Partie - 4.5. Comparaison via une `data/whitelist` pour authorisé certaine ip *(type admin)* 
 
 #### ●  Exemple de fichier `/whitelist.json`
+
 ```json
 {
     "whitelist" : {
@@ -76,13 +92,12 @@
 
 ---
 ---
-## 🕵️ 5. Installation en tant que Service (Systemd)
+## •  5. Installation en tant que Service (Systemd)
 Pour garantir une protection 24/7, **Sentinel-Log** est déployé comme **démon** système :
 
 - une fois le démon configuré : 
 
-```
-Bash
+```Bash
 # Activation du service
 sudo systemctl daemon-reload
 sudo systemctl enable sentinel-log.service
@@ -91,15 +106,15 @@ sudo systemctl start sentinel-log.service
 
 ![Capture service sentinel log deployé](./captures/capture_system_sentinel.png)
 
-## Consultation des journaux de fonctionnement
-```
-bash
+## • 6. Consultation des journaux de fonctionnement
+
+```bash
 journalctl -u sentinel-log.service -f
 ```
 
 ---
 ---
-## 📂 Structure des Données
+## •  7. Structure des Données
 - `data/data_ip.json` : Base de données d'état (Compteurs, dates, statuts).
 
 - `data/whitelist.json`: Dictionnaire des IP autorisées.
@@ -108,7 +123,7 @@ journalctl -u sentinel-log.service -f
 
 ---
 ---
-## 📜 Licence
+## • 8. Licence
 Ce projet est sous licence **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**.
 Toute utilisation commerciale est strictement interdite sans autorisation préalable. Consultez le fichier [LICENSE](./LICENSE) pour plus de détails.
 

@@ -37,13 +37,22 @@ os.makedirs("logs", exist_ok=True)
 ## --- PARTIE 2 : OUTILS SYSTÈME & JSON ---
 
 def apply_permissions(path):
-    uid = int(os.environ.get('SUDO_UID', 0))
-    gid = int(os.environ.get('SUDO_GID', 0))
-    if uid != 0:
-        try:
-            os.chown(path, uid, gid)
-            os.chmod(path, 0o644)
-        except: pass
+    USERNAME = "faramir" 
+    
+    import shutil
+    try:
+        # On récupère dynamiquement l'UID et le GID 
+        import pwd
+        user_info = pwd.getpwnam(USERNAME)
+        uid = user_info.pw_uid
+        gid = user_info.pw_gid
+        
+        # Application des droits
+        os.chown(path, uid, gid)
+        os.chmod(path, 0o644) # Lecture/Écriture 
+    except Exception as e:
+        print(f"❌ Erreur permissions sur {path} : {e}")
+
 
 def load_json(path, default):
     if os.path.exists(path):
@@ -160,6 +169,7 @@ def main():
             nb = data_ip[ip]["tentatives"]
             
             save_json(PATH_DATA_IP, data_ip)
+            
 
             if nb < 3:
                 print(f"⚠️ [ALERT] Échec {nb}/3 - IP: {ip}")
@@ -168,6 +178,7 @@ def main():
                 if ban_ip(ip, user):
                     data_ip[ip]["status"] = "BANNED"
                     save_json(PATH_DATA_IP, data_ip)
+            
 
 if __name__ == "__main__":
     main()
